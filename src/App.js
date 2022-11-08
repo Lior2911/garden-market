@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { Home, SignUp, LogIn, MyMarket } from "./components/pages/index";
+import "./App.css";
+import { Container } from "react-bootstrap";
+import { Route, Routes } from "react-router-dom";
+import Header from "./components/features/Header/Header";
+import { ShoppingCartProvider } from "./contexts/useShoppingCatContext";
+import Footer from './components/features/Footer/Footer';
+import {UserAuthContextProvider} from './contexts/UserAuthContext'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ShoppingCartProvider>
+        <Header />
+        <Container className="mb-3">
+      <UserAuthContextProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/MyMarket" element={<MyMarket />} />
+            <Route path="/SignUp" element={<SignUp />} />
+            <Route path="/LogIn" element={<LogIn />} />
+          </Routes>
+          </UserAuthContextProvider>
+        </Container>
+        <Footer/>
+
+      </ShoppingCartProvider>
+    </>
   );
 }
 
