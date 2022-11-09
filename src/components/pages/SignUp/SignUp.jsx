@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button ,Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import { useUserAuth } from "../../../contexts/UserAuthContext";
 
 const SignUp = () => {
@@ -8,11 +8,13 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { signUp } = useUserAuth();
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await signUp(email, password);
+      navigate("/")
     } catch (err) {
       setError(err.message);
     }
@@ -39,7 +41,7 @@ const SignUp = () => {
             ></Form.Control>
           </Form.Group>
           <div className="d-grid gap-2">
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={handleSubmit}>
               Sign Up
             </Button>
           </div>

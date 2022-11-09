@@ -2,14 +2,28 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useShoppingCart } from "../../../contexts/useShoppingCatContext";
-
+import { useUserAuth } from "../../../contexts/UserAuthContext";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import {useNavigate} from 'react-router-dom'
+
 
 function Header() {
   const { openCart, cartQuantity } = useShoppingCart();
+  const { logOut ,user } = useUserAuth();
+  const navigate = useNavigate();
+
+  const handleLogOut =  async ()=>{
+    try{
+      await logOut()
+      navigate('/')
+    }
+    catch(error){
+      console.log(error.message);
+
+    }
+  }
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -64,7 +78,10 @@ function Header() {
               </div>
             </Button>
           )}
-       
+          <div className="d-grid gap 2">
+            {user?.email||user?.displayName}
+            <Button variant="primary" onClick={handleLogOut}>Log Out</Button>
+          </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>

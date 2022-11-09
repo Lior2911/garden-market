@@ -1,5 +1,18 @@
-body {
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+
+.box{
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
+}
+.g-btn{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 15px;
+}
+.g-btn >div ,
+.g-btn > div > svg {
+  width: 40px;
+  height: 38px;
 }
 .App {
   text-align: center;
@@ -39,3 +52,4 @@ body {
     transform: rotate(360deg);
   }
 }
+
